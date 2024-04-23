@@ -12,12 +12,12 @@ var k = 0.5#де на шляху від 0 до 1 буде максимальне
 var m = 100#величина максимального перевищення
 var a = -m/(k*k-k);#коефиіиєнт квадратного тричлена delta_y = a*t*t-a*t
 
+var is_stuck=false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#launch(700, 300);
 	
 	pass # Replace with function body.
-
 
 func launch(xt, yt):#Запускаємо стрілу з початкової позиції у деяку точку xt, yt
 	x0 = self.position.x;
@@ -34,6 +34,8 @@ func launch(xt, yt):#Запускаємо стрілу з початкової �
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if is_stuck:
+		return
 	#delta - це скільки часу пройшло в секундах
 	spent_time+=delta;
 	var t = spent_time/fly_time;
@@ -52,3 +54,19 @@ func _process(delta):
 		
 		
 	pass
+
+
+func stick_to_object(ob):
+	print("stick_to_object")
+	if not is_stuck:
+		is_stuck=true;
+		var dx = self.position.x-ob.position.x;
+		var dy = self.position.y-ob.position.y;
+		var dr = self.rotation-ob.rotation;
+
+		self.get_parent().remove_child(self)
+		ob.add_child(self);
+
+		self.position.x = dx;
+		self.position.y = dy;
+		self.rotation = dr;

@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://or5khoa5nfxt"]
+[gd_scene load_steps=4 format=3 uid="uid://or5khoa5nfxt"]
 
 [ext_resource type="Script" path="res://Arrow.gd" id="1_e6yml"]
 [ext_resource type="Texture2D" uid="uid://b2kidk6wqpsem" path="res://arrow.png" id="2_r4u7r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y8ukg"]
+radius = 3.0
 
 [node name="Arrow" type="Node2D"]
 script = ExtResource("1_e6yml")
@@ -9,3 +12,9 @@ script = ExtResource("1_e6yml")
 [node name="Arrow" type="Sprite2D" parent="."]
 position = Vector2(0, 21)
 texture = ExtResource("2_r4u7r")
+
+[node name="arrow_tip" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="arrow_tip"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_y8ukg")
